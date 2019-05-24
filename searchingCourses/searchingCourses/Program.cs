@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace searchingCourses
 {
@@ -26,6 +27,8 @@ namespace searchingCourses
         {
             var dictFile = File.ReadAllText("../profanities.txt");
             dictFile = dictFile.Replace("*", "");
+            dictFile = dictFile.Replace("(", "");
+            dictFile = dictFile.Replace(")", "");
             badWords = dictFile.Split(new[] {"\",\""}, StringSplitOptions.None);
            
         }
@@ -34,10 +37,16 @@ namespace searchingCourses
         {
             foreach (var word in badWords)
             {
-                text = text.Replace(" " + word + " ", " ___ ");
-                
+                text = RemoveBadWord(text, word);
+
             }
             return text;
+        }
+
+        private static string RemoveBadWord(string text, string word)
+        {
+            string pattern = "\\b"+word+"\\b";
+            return Regex.Replace(text, pattern, "___", RegexOptions.IgnoreCase);
         }
     }
 }
