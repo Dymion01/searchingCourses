@@ -5,6 +5,10 @@ namespace searchingCourses
 {
     partial class SongLyrics
     {
+        public string artist;
+        public string title;
+        public string lyrics;
+
 
 
         public SongLyrics(string artist, string title)
@@ -13,7 +17,10 @@ namespace searchingCourses
             var url = "https://api.lyrics.ovh/v1/" + artist + "/" + title; 
             var json = browser.DownloadString(url);
             var answer = JsonConvert.DeserializeObject<LyricsOvhAnswer>(json);
-            Console.WriteLine(answer.lyrics);
+            lyrics = answer.lyrics;
+            this.artist = artist;
+            this.title = title;
+            
 
         }
     }
