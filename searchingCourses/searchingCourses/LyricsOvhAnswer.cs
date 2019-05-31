@@ -1,6 +1,6 @@
 ﻿namespace searchingCourses
 {
-    partial class SongLyrics
+    partial class Song
     {
         public class LyricsOvhAnswer
         {

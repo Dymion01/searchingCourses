@@ -1,6 +1,6 @@
 ﻿using System;
-using System.IO;
-using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Data.SQLite;
 
 namespace searchingCourses
 {
@@ -8,45 +8,37 @@ namespace searchingCourses
     {
         static void Main(string[] args)
         {
-            var songLyrics = new SongLyrics("Eminem", "Without me");
-            var profanityFinder = new ProfanityFinder();
+           //// var webcache = new WebCache();
+           //// var eminem = new Artist("Eminem");
+           // eminem.songsTitles = new List<string>()
+           // {
+           //     "Lucky You",
+           //     "Lose Yourself",
+           //     "Not Afraid"
+           // };
 
-            var Censored = profanityFinder.Censored(songLyrics.lyrics);
+            //eminem.CalculateSwerAndWordCount();
 
-            Console.WriteLine(Censored);
+            //eminem.DisplayStatistic();
+
+
             Console.WriteLine("Done.");
             Console.ReadLine();
         }
     }
 
-    internal class ProfanityFinder
+    public class WebCache
     {
-        private string[] badWords;
-
-        public ProfanityFinder() 
+        SQLiteConnection connection;
+        public WebCache()
         {
-            var dictFile = File.ReadAllText("../profanities.txt");
-            dictFile = dictFile.Replace("*", "");
-            dictFile = dictFile.Replace("(", "");
-            dictFile = dictFile.Replace(")", "");
-            badWords = dictFile.Split(new[] {"\",\""}, StringSplitOptions.None);
-           
+            connection = new SQLiteConnection("Data Source=WebCache.sqlie;");
+            connection.Open();
+
         }
-
-        public string Censored(string text)
+        public void SaveInCache(string url,string data)
         {
-            foreach (var word in badWords)
-            {
-                text = RemoveBadWord(text, word);
-
-            }
-            return text;
-        }
-
-        private static string RemoveBadWord(string text, string word)
-        {
-            string pattern = "\\b"+word+"\\b";
-            return Regex.Replace(text, pattern, "___", RegexOptions.IgnoreCase);
+            var sql= new SQLiteCommand()
         }
     }
 }
