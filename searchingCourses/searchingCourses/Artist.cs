@@ -6,7 +6,7 @@ namespace searchingCourses
     public class Artist
     {
         public string name;
-        internal List<string> songsTitles;
+        internal String[] songsTitles;
         public int wordCount;
         public int swearCount;
 
@@ -28,8 +28,7 @@ namespace searchingCourses
                 wordCount += song.CountWords();
             }
 
-            Console.WriteLine("Swear count: "+ swearCount);
-            Console.WriteLine("Word count: " + wordCount);
+            
         }
 
         public void DisplayStatistic()
